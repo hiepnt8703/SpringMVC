@@ -24,6 +24,8 @@ public class UserController {
 
     @RequestMapping("/admin/user")
     public String getCreate(Model model) {
+        String abc = "Tuan Hiep shop";
+        model.addAttribute("title", abc);
         return "admin/user/create";
     }
 
