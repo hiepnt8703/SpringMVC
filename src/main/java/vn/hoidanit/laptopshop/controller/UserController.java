@@ -20,14 +20,21 @@ public class UserController {
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        List<User> listUser = this.userService.getAllUsersByEmail("tuanhiep@gmail.com");
-        System.out.println(listUser);
         model.addAttribute("hiep", "test");
         model.addAttribute("tuanhiepit", "From Controller");
-        return "hello";
+        return "index";
     }
 
     @RequestMapping("/admin/user")
+    public String getHomeUser(Model model) {
+        String abc = "Tuan Hiep Shop";
+        model.addAttribute("title", abc);
+        List<User> users = this.userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "admin/user/index";
+    }
+
+    @RequestMapping("/admin/user/create")
     public String getCreate(Model model) {
         String abc = "Tuan Hiep shop";
         model.addAttribute("title", abc);
@@ -35,10 +42,10 @@ public class UserController {
         return "admin/user/create";
     }
 
-    @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
     public String getUser(Model model, @ModelAttribute("newUser") User user) {
         this.userService.handleSaveUser(user);
-        return "hello";
+        return "redirect:/admin/user";
     }
 
 }
