@@ -41,9 +41,11 @@
                                             <td>${item.email}</td>
                                             <td>${item.fullName}</td>
                                             <td>
-                                                <button class="btn btn-success">View</button>
-                                                <button class="btn btn-warning">Update</button>
-                                                <button class="btn btn-danger">Delete</button>
+                                                <a href="/admin/user/${item.id}" class="btn btn-success">View</a>
+                                                <a href="/admin/user/update/${item.id}"
+                                                    class="btn btn-warning">Update</a>
+                                                <a href="/admin/user/delete/${item.id}"
+                                                    class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
