@@ -90,7 +90,16 @@ public class UserController {
         String abc = "Tuan Hiep Shop";
         model.addAttribute("title", abc);
         model.addAttribute("id", id);
+        model.addAttribute("newUser", new User());
         return "admin/user/delete";
+    }
+
+    @PostMapping("/admin/user/delete")
+    public String postDeleteUser(Model model, @ModelAttribute("newUser") User user) {
+        String abc = "Tuan Hiep Shop";
+        model.addAttribute("title", abc);
+        this.userService.deleteUser(user.getId());
+        return "redirect:/admin/user";
     }
 
 }
