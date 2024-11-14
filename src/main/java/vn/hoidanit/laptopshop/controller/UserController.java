@@ -24,15 +24,14 @@ public class UserController {
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        model.addAttribute("hiep", "test");
+        String abc = "123456";
+        model.addAttribute("hiep", abc);
         model.addAttribute("tuanhiepit", "From Controller");
         return "index";
     }
 
     @RequestMapping("/admin/user")
     public String getHomeUser(Model model) {
-        String abc = "Tuan Hiep Shop";
-        model.addAttribute("title", abc);
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("users", users);
         return "admin/user/index";

@@ -19,7 +19,7 @@
             <body>
                 <div class="container mt-5">
                     <div class="row">
-                        <div class="col-12 mx-auto">
+                        <div class="col-6 mx-auto">
 
                             <h1 class="text-center">Update User</h1>
                             <form:form action="/admin/user/update" method="post" modelAttribute="newUser">
