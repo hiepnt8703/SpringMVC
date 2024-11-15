@@ -13,6 +13,17 @@
                 <title>Dashboard - Tuan Hiep Shop</title>
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
                 <link href="/css/styles.css" rel="stylesheet" />
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
@@ -25,8 +36,10 @@
                             <div class="container-fluid px-4">
                                 <h1 class="mt-4">Create User</h1>
                                 <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item"><a style="text-decoration: none" href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item "><a style="text-decoration: none" href="/admin/user">Users</a></li>
+                                    <li class="breadcrumb-item"><a style="text-decoration: none"
+                                            href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item "><a style="text-decoration: none"
+                                            href="/admin/user">Users</a></li>
                                     <li class="breadcrumb-item active">Create</li>
                                 </ol>
                                 <div class="mt-5">
@@ -34,33 +47,54 @@
                                         <div class="col-md-6 col-12 mx-auto">
                                             <h1 class="text-center">Tuan Hiep Spring MVC</h1>
                                             <form:form action="/admin/user/create" method="post"
-                                                modelAttribute="newUser">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Email address:</label>
-                                                    <form:input type="email" class="form-control" path="email" />
+                                                modelAttribute="newUser" enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <label class="form-label">Email address:</label>
+                                                        <form:input type="email" class="form-control" path="email" />
+                                                    </div>
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <label class="form-label">Password:</label>
+                                                        <form:input type="password" class="form-control"
+                                                            path="password" />
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Password:</label>
-                                                    <form:input type="password" class="form-control" path="password" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">FullName:</label>
-                                                    <form:input type="text" class="form-control" path="fullName" />
+                                                <div class="row">
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <label class="form-label">FullName:</label>
+                                                        <form:input type="text" class="form-control" path="fullName" />
+                                                    </div>
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <label class="form-label">Number Phone:</label>
+                                                        <form:input type="text" class="form-control" path="phone" />
+                                                    </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Address:</label>
                                                     <form:input type="text" class="form-control" path="address" />
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Number Phone:</label>
-                                                    <form:input type="text" class="form-control" path="phone" />
+                                                <div class="row">
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <label class="form-label">Role:</label>
+                                                        <form:select class="form-select" path="role.name">
+                                                            <form:option value="ADMIN">Admin</form:option>
+                                                            <form:option value="USER">Guest</form:option>
+                                                        </form:select>
+                                                    </div>
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <label for="avatarfile" class="form-label">Choose
+                                                            avatar:</label>
+                                                        <input class="form-control" type="file" id="avatarFile"
+                                                            accept=".png, .jpg, .jpeg" name="imageFile" />
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <img style="display: none;" alt="avatar preview"
+                                                            id="avatarPreview">
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3 form-check">
-                                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                    <label class="form-check-label" for="exampleCheck1">Check me
-                                                        out</label>
+                                                <div class="col-12 mb-5">
+                                                    <button type="submit" class="btn btn-primary">Create</button>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">create</button>
                                             </form:form>
                                         </div>
                                     </div>
