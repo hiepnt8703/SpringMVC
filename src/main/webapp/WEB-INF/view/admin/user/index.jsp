@@ -42,6 +42,7 @@
                                                     <th scope="col">ID</th>
                                                     <th scope="col">Email</th>
                                                     <th scope="col">Full Name</th>
+                                                    <th scope="col">Role</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -51,6 +52,7 @@
                                                         <th scope="row">${item.id}</th>
                                                         <td>${item.email}</td>
                                                         <td>${item.fullName}</td>
+                                                        <td>${item.role.name}</td>
                                                         <td>
                                                             <a href="/admin/user/${item.id}"
                                                                 class="btn btn-success">View</a>

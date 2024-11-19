@@ -30,14 +30,6 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/")
-    public String getHomePage(Model model) {
-        String abc = "123456";
-        model.addAttribute("hiep", abc);
-        model.addAttribute("tuanhiepit", "From Controller");
-        return "index";
-    }
-
     @RequestMapping("/admin/user")
     public String getHomeUser(Model model) {
         List<User> users = this.userService.getAllUsers();
@@ -60,7 +52,6 @@ public class UserController {
 
         String avatar = this.uploadService.handleUploadSave(file, "avatar");
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
-
         user.setAvatar(avatar);
         user.setPassword(hashPassword);
         user.setRole(this.userService.getRoleByName(user.getRole().getName()));
