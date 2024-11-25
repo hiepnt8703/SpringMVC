@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
             <!DOCTYPE html>
             <html lang="en">
 
@@ -45,33 +46,62 @@
                                 <div class="mt-5">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <h1 class="text-center">Tuan Hiep Spring MVC</h1>
+                                            <h1 class="text-center">Create User</h1>
                                             <form:form action="/admin/user/create" method="post"
                                                 modelAttribute="newUser" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="col-12 mb-3 col-md-6">
+                                                        <c:set var="errorEmail">
+                                                            <form:errors path="email" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Email address:</label>
-                                                        <form:input type="email" class="form-control" path="email" />
+                                                        <form:input type="email"
+                                                            class=" form-control ${not empty errorEmail ? 'is-invalid' :''}"
+                                                            path="email" />
+                                                        ${errorEmail}
                                                     </div>
                                                     <div class="col-12 mb-3 col-md-6">
+                                                        <c:set var="errorPassword">
+                                                            <form:errors path="password" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Password:</label>
-                                                        <form:input type="password" class="form-control"
+                                                        <form:input type="password"
+                                                            class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
                                                             path="password" />
+                                                        ${errorPassword}
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 mb-3 col-md-6">
+                                                        <c:set var="errorFullname">
+                                                            <form:errors path="fullName" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">FullName:</label>
-                                                        <form:input type="text" class="form-control" path="fullName" />
+                                                        <form:input type="text"
+                                                            class="form-control ${not empty errorFullname ? 'is-invalid' : ''}"
+                                                            path="fullName" />
+                                                        ${errorFullname}
                                                     </div>
                                                     <div class="col-12 mb-3 col-md-6">
-                                                        <label class="form-label">Number Phone:</label>
-                                                        <form:input type="text" class="form-control" path="phone" />
+                                                        <c:set var="errorPhone">
+                                                            <form:errors path="phone" cssClass="invalid-feedback" />
+                                                        </c:set>
+                                                        <label class="form-label">Number Phone</label>
+                                                        <form:input type="text"
+                                                            class="form-control ${not empty errorPhone ? 'is-invalid' : ''}"
+                                                            path="phone" />
+                                                        ${errorPhone}
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
+                                                    <c:set var="errorAddress">
+                                                        <form:errors path="address" cssClass="invalid-feedback" />
+                                                    </c:set>
                                                     <label class="form-label">Address:</label>
-                                                    <form:input type="text" class="form-control" path="address" />
+                                                    <form:input type="text"
+                                                        class="form-control ${not empty errorAddress ? 'is-invalid' : ''}"
+                                                        path="address" />
+                                                    ${errorAddress}
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 mb-3 col-md-6">

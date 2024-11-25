@@ -1,12 +1,99 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import vn.hoidanit.laptopshop.domain.Product;
+import vn.hoidanit.laptopshop.service.ProductService;
+import vn.hoidanit.laptopshop.service.UploadService;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class ProductController {
-    @GetMapping("/admin/product")
-    public String getProduct() {
-        return "/admin/product/show";
+    private final UploadService uploadService;
+    private final ProductService productService;
+
+    public ProductController(UploadService uploadService, ProductService productService) {
+        this.uploadService = uploadService;
+        this.productService = productService;
     }
+
+    @GetMapping("/admin/product")
+    public String getHomeProduct(Model model) {
+        String abc = "Tuan Hiep shop";
+        List<Product> products = this.productService.getAll();
+        model.addAttribute("title", abc);
+        model.addAttribute("products", products);
+        return "admin/product/index";
+    }
+
+    @GetMapping("/admin/product/create")
+    public String getCreate(Model model) {
+        model.addAttribute("newProduct", new Product());
+        return "admin/product/create";
+    }
+
+    @PostMapping("/admin/product/create")
+    public String getProduct(Model model,
+            @ModelAttribute("newProduct") Product product,
+            @RequestParam("imageFile") MultipartFile file) {
+        String avatar = this.uploadService.handleUploadSave(file, "imageFile");
+        product.setImage(avatar);
+        this.productService.handleSaveProduct(product);
+        return "redirect:/admin/product";
+    }
+
+    @GetMapping("/admin/product/{id}")
+    public String getProductDetail(Model model, @PathVariable long id) {
+        Product product = this.productService.getProductId(id);
+        model.addAttribute("product", product);
+        return "admin/product/detail";
+    }
+
+    @GetMapping("/admin/product/edit/{id}")
+    public String getEdit(Model model, @PathVariable long id) {
+        Product productCurrent = this.productService.getProductId(id);
+        model.addAttribute("newProduct", productCurrent);
+        return "admin/product/edit";
+    }
+
+    @PostMapping("/admin/product/update")
+    public String postProductUpdate(Model model, @ModelAttribute("newProduct") Product product) {
+        Product productCurrent = this.productService.getProductId(product.getId());
+        if (productCurrent != null) {
+            productCurrent.setName(product.getName());
+            productCurrent.setPrice(product.getPrice());
+            productCurrent.setDetailDesc(product.getDetailDesc());
+            productCurrent.setShortDesc(product.getShortDesc());
+            productCurrent.setQuantity(product.getQuantity());
+            productCurrent.setFactory(product.getFactory());
+            productCurrent.setTarget(product.getTarget());
+            product = this.productService.handleSaveProduct(productCurrent);
+        }
+        return "redirect:/admin/product";
+    }
+
+    @GetMapping("/admin/product/delete/{id}")
+    public String getDeleteProduct(Model model, @PathVariable long id) {
+        Product product = this.productService.getProductId(id);
+        model.addAttribute("id", id);
+        model.addAttribute("newProduct", product);
+        return "admin/product/delete";
+    }
+
+    @PostMapping("/admin/product/delete")
+    public String postDeleteProduct(Model model, @ModelAttribute("newProduct") Product product) {
+        this.productService.getDeleteProduct(product.getId());
+        return "redirect:/admin/product";
+    }
+
 }

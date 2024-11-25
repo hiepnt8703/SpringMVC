@@ -22,48 +22,49 @@
                 <div id="layoutSidenav_content">
                     <main>
                         <div class="container-fluid px-4">
-                            <h1 class="mt-4">Users</h1>
+                            <h1 class="mt-4">Products</h1>
                             <ol class="breadcrumb mb-4">
                                 <li class="breadcrumb-item"><a style="text-decoration: none" href="/admin">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item active">Users</li>
+                                <li class="breadcrumb-item active">Product</li>
                             </ol>
                             <div class="container mt-5">
                                 <div class="row">
                                     <div class="col-12 mx-auto">
                                         <div class="d-flex justify-content-between">
-                                            <h3>Table Users</h3>
-                                            <a href="/admin/user/create" class="btn btn-primary">Create a user</a>
+                                            <h3>Table Product</h3>
+                                            <a href="/admin/product/create" class="btn btn-primary">Create a product</a>
                                         </div>
                                         <hr>
                                         <table class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">ID</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Full Name</th>
-                                                    <th scope="col">Role</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Factory</th>
+                                                    <th scope="col">Quantity</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${users}" var="item">
+                                                <c:forEach items="${products}" var="item">
                                                     <tr>
                                                         <th scope="row">${item.id}</th>
-                                                        <td>${item.email}</td>
-                                                        <td>${item.fullName}</td>
-                                                        <td>${item.role.name}</td>
+                                                        <td>${item.name}</td>
+                                                        <td>${item.price}</td>
+                                                        <td>${item.factory}</td>
+                                                        <td>${item.quantity}</td>
                                                         <td>
-                                                            <a href="/admin/user/${item.id}"
+                                                            <a href="/admin/product/${item.id}"
                                                                 class="btn btn-success">View</a>
-                                                            <a href="/admin/user/update/${item.id}"
+                                                            <a href="/admin/product/edit/${item.id}"
                                                                 class="btn btn-warning">Update</a>
-                                                            <a href="/admin/user/delete/${item.id}"
+                                                            <a href="/admin/product/delete/${item.id}"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
-
                                             </tbody>
                                         </table>
                                     </div>

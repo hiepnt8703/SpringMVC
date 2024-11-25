@@ -9,5 +9,4 @@ public class HomepageController {
     public String getHomePage() {
         return "client/homepage/show";
     }
-
 }

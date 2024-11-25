@@ -10,6 +10,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -18,11 +22,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
+    @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
+
+    @NotNull
+    @Size(min = 2, message = "Password phải có tối thiểu 8 ký tự")
     private String password;
+    @NotNull
+    @Size(min = 2, message = "Fullname phải có tối thiểu 2 ký tự")
     private String fullName;
+    @NotNull
+    @Size(max = 155, message = "Địa chỉ không được để trống")
     private String address;
+
+    @Size(min = 0, message = "Số điện thoại không được trống")
     private String phone;
+
     private String avatar;
 
     // User many -> to one -> role
