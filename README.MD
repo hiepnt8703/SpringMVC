@@ -1,5 +1,5 @@
 # Java Spring Starter template abc
-Template này được sử dụng cho series Java Spring MVC (dự án laptopshop) của tác giả Hỏi Dân IT (Eric)
+Template này được sử dụng cho series Java Spring MVC (dự án laptopshop)
 
 ## Về tác giả
 Mọi thông tin về Tác giả Hỏi Dân IT, các bạn có thể tìm kiếm tại đây:
