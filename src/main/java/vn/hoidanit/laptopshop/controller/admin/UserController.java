@@ -53,11 +53,6 @@ public class UserController {
             @ModelAttribute("newUser") @Valid User user,
             BindingResult bindingResult,
             @RequestParam("imageFile") MultipartFile file) {
-
-        List<FieldError> errors = bindingResult.getFieldErrors();
-        for (FieldError error : errors) {
-            System.out.println(error.getObjectName() + " - " + error.getDefaultMessage());
-        }
         // validation
         if (bindingResult.hasErrors()) {
             return "/admin/user/create";
