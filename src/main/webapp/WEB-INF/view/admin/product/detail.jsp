@@ -39,6 +39,9 @@
                                             </div>
                                             <hr>
                                             <div class="card" style="width: 60%">
+                                                <img class="card-img-top" src="/images/product/${product.image}"
+                                                    alt="Card image cap">
+
                                                 <div class="card-header">
                                                     Information
                                                 </div>
@@ -52,7 +55,6 @@
                                                     <li class="list-group-item">Factory: ${product.factory}</li>
                                                     <li class="list-group-item">Quantity: ${product.quantity}</li>
                                                     <li class="list-group-item">Target: ${product.target}</li>
-                                                    <li class="list-group-item">Image: ${product.image}</li>
                                                 </ul>
                                             </div>
                                         </div>

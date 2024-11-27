@@ -45,30 +45,63 @@
                                             <h1 class="text-center">Create Product</h1>
                                             <form:form action="/admin/product/create" method="post"
                                                 modelAttribute="newProduct" enctype="multipart/form-data">
+                                                <c:set var="errorName">
+                                                    <form:errors path="name" cssClass="invalid-feedback" />
+                                                </c:set>
+
+                                                <c:set var="errorPrice">
+                                                    <form:errors path="price" cssClass="invalid-feedback" />
+                                                </c:set>
+
+                                                <c:set var="errorDetail">
+                                                    <form:errors path="detailDesc" cssClass="invalid-feedback" />
+                                                </c:set>
+
+                                                <c:set var="errorDetailShort">
+                                                    <form:errors path="shortDesc" cssClass="invalid-feedback" />
+                                                </c:set>
+
+                                                <c:set var="errorQuantity">
+                                                    <form:errors path="quantity" cssClass="invalid-feedback" />
+                                                </c:set>
                                                 <div class="row">
                                                     <div class="col-12 mb-3 col-md-6">
                                                         <label class="form-label">Name:</label>
-                                                        <form:input type="text" class="form-control" path="name" />
+                                                        <form:input type="text"
+                                                            class="form-control ${not empty errorName ? 'is-invalid' : ''}"
+                                                            path="name" />
+                                                        ${errorName}
                                                     </div>
                                                     <div class="col-12 mb-3 col-md-6">
                                                         <label class="form-label">Price:</label>
-                                                        <form:input type="double" class="form-control" path="price" />
+                                                        <form:input type="number"
+                                                            class="form-control ${not empty errorPrice ? 'is-invalid' : ''}"
+                                                            path="price" />
+                                                        ${errorPrice}
                                                     </div>
+
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Detail Description:</label>
-                                                    <form:input type="text" class="form-control py-4"
+                                                    <form:input type="text"
+                                                        class="form-control py-4 ${not empty errorDetail ? 'is-invalid' : ''}"
                                                         path="detailDesc" />
+                                                    ${errorDetail}
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 mb-3 col-md-6">
                                                         <label class="form-label">Short Description:</label>
-                                                        <form:input type="text" class="form-control" path="shortDesc" />
+                                                        <form:input type="text"
+                                                            class="form-control ${not empty errorDetailShort ? 'is-invalid' : ''}"
+                                                            path="shortDesc" />
+                                                        ${errorDetailShort}
                                                     </div>
                                                     <div class="col-12 mb-3 col-md-6">
                                                         <label class="form-label">Quantity:</label>
-                                                        <form:input type="number" class="form-control"
+                                                        <form:input type="number"
+                                                            class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}"
                                                             path="quantity" />
+                                                        ${errorQuantity}
                                                     </div>
                                                 </div>
                                                 <div class="row">

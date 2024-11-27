@@ -11,7 +11,5 @@ import vn.hoidanit.laptopshop.domain.Product;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     // Product save(Product product);
 
-    Product getById(long id);
-
     void deleteById(long id);
 }

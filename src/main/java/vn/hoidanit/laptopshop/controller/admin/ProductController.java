@@ -1,9 +1,12 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +18,8 @@ import vn.hoidanit.laptopshop.service.UploadService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class ProductController {
@@ -44,9 +48,16 @@ public class ProductController {
 
     @PostMapping("/admin/product/create")
     public String getProduct(Model model,
-            @ModelAttribute("newProduct") Product product,
+            @ModelAttribute("newProduct") @Valid Product product,
+            BindingResult bindingResult,
             @RequestParam("imageFile") MultipartFile file) {
-        String avatar = this.uploadService.handleUploadSave(file, "imageFile");
+
+        // validation
+        if (bindingResult.hasErrors()) {
+            return "/admin/product/create";
+        }
+        // end validation
+        String avatar = this.uploadService.handleUploadSave(file, "product");
         product.setImage(avatar);
         this.productService.handleSaveProduct(product);
         return "redirect:/admin/product";
@@ -54,22 +65,35 @@ public class ProductController {
 
     @GetMapping("/admin/product/{id}")
     public String getProductDetail(Model model, @PathVariable long id) {
-        Product product = this.productService.getProductId(id);
-        model.addAttribute("product", product);
+        Optional<Product> product = this.productService.getProductId(id);
+        model.addAttribute("product", product.get());
         return "admin/product/detail";
     }
 
     @GetMapping("/admin/product/edit/{id}")
     public String getEdit(Model model, @PathVariable long id) {
-        Product productCurrent = this.productService.getProductId(id);
-        model.addAttribute("newProduct", productCurrent);
+        Optional<Product> product = this.productService.getProductId(id);
+        model.addAttribute("newProduct", product.get());
         return "admin/product/edit";
     }
 
     @PostMapping("/admin/product/update")
-    public String postProductUpdate(Model model, @ModelAttribute("newProduct") Product product) {
-        Product productCurrent = this.productService.getProductId(product.getId());
+    public String postProductUpdate(@ModelAttribute("newProduct") @Valid Product product,
+            BindingResult bindingResult,
+            @RequestParam("imageFile") MultipartFile file) {
+
+        // validation
+        if (bindingResult.hasErrors()) {
+            return "admin/product/edit";
+        }
+        // end
+        Product productCurrent = this.productService.getProductId(product.getId()).get();
+        // upload product
         if (productCurrent != null) {
+            if (!file.isEmpty()) {
+                String img = this.uploadService.handleUploadSave(file, "product");
+                productCurrent.setImage(img);
+            }
             productCurrent.setName(product.getName());
             productCurrent.setPrice(product.getPrice());
             productCurrent.setDetailDesc(product.getDetailDesc());
@@ -77,14 +101,15 @@ public class ProductController {
             productCurrent.setQuantity(product.getQuantity());
             productCurrent.setFactory(product.getFactory());
             productCurrent.setTarget(product.getTarget());
-            product = this.productService.handleSaveProduct(productCurrent);
+
+            this.productService.handleSaveProduct(productCurrent);
         }
         return "redirect:/admin/product";
     }
 
     @GetMapping("/admin/product/delete/{id}")
     public String getDeleteProduct(Model model, @PathVariable long id) {
-        Product product = this.productService.getProductId(id);
+        Product product = this.productService.getProductId(id).get();
         model.addAttribute("id", id);
         model.addAttribute("newProduct", product);
         return "admin/product/delete";

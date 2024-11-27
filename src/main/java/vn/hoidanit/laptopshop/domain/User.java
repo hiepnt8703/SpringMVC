@@ -33,10 +33,10 @@ public class User {
     @Size(min = 2, message = "Fullname phải có tối thiểu 2 ký tự")
     private String fullName;
     @NotNull
-    @Size(max = 155, message = "Địa chỉ không được để trống")
+    @Size(min = 3, message = "Địa chỉ không được để trống")
     private String address;
 
-    @Size(min = 0, message = "Số điện thoại không được trống")
+    @Size(min = 2,message = "Số điện thoại không được trống")
     private String phone;
 
     private String avatar;

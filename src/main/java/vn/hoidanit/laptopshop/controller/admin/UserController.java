@@ -42,7 +42,7 @@ public class UserController {
 
     @GetMapping("/admin/user/create")
     public String getCreate(Model model) {
-        String abc = "Tuan Hiep shop";
+        String abc = "12345";
         model.addAttribute("title", abc);
         model.addAttribute("newUser", new User());
         return "admin/user/create";
