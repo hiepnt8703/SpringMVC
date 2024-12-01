@@ -2,6 +2,9 @@ package vn.hoidanit.laptopshop.domain;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +15,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -32,11 +34,10 @@ public class User {
     @NotNull
     @Size(min = 2, message = "Fullname phải có tối thiểu 2 ký tự")
     private String fullName;
-    @NotNull
     @Size(min = 3, message = "Địa chỉ không được để trống")
     private String address;
 
-    @Size(min = 2,message = "Số điện thoại không được trống")
+    @Size(min = 2, message = "Số điện thoại không được trống")
     private String phone;
 
     private String avatar;

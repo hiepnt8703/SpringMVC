@@ -1,5 +1,5 @@
-<div class="container-fluid featurs py-5">
-    <div class="container py-5">
+<div class="container-fluid featurs py-1">
+    <div class="container py-1">
         <div class="row g-4">
             <div class="col-md-6 col-lg-3">
                 <div class="featurs-item text-center rounded bg-light p-4">

@@ -41,13 +41,9 @@
                     <div class="spinner-grow text-primary" role="status"></div>
                 </div>
                 <!-- Spinner End -->
-
-
                 <!-- Navbar start -->
                 <jsp:include page="../layout/header.jsp" />
                 <!-- Navbar End -->
-
-
                 <!-- Modal Search Start -->
                 <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -75,9 +71,7 @@
                 <jsp:include page="../layout/banner.jsp" />
                 <!-- Banner Section End -->
 
-                <!-- Featurs Section Start -->
-                <jsp:include page="../layout/feature.jsp" />
-                <!-- Featurs Section End -->
+
                 <!-- Fruits Shop Start-->
                 <div class="container-fluid fruite py-5">
                     <div class="container py-5">
@@ -390,7 +384,9 @@
                     </div>
                 </div>
                 <!-- Fruits Shop End-->
-
+                <!-- Featurs Section Start -->
+                <jsp:include page="../layout/feature.jsp" />
+                <!-- Featurs Section End -->
 
                 <!-- Footer Start -->
                 <jsp:include page="../layout/footer.jsp" />
