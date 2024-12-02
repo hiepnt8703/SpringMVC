@@ -63,7 +63,7 @@ public class HomepageController {
 
     @GetMapping("/login")
     public String getLogin(Model model) {
-
+        model.addAttribute("title", "Tuan Hiep Shop");
         return "client/auth/login";
     }
 

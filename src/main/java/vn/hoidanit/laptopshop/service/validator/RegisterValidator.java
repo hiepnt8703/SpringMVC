@@ -29,6 +29,14 @@ public class RegisterValidator implements ConstraintValidator<RegisterChecked, R
             valid = false;
         }
 
+        if (user.getEmail().isEmpty()) {
+            context.buildConstraintViolationWithTemplate("Email không được trống")
+                    .addPropertyNode("email")
+                    .addConstraintViolation()
+                    .disableDefaultConstraintViolation();
+            valid = false;
+        }
+
         // Additional validations can be added here
         // check email service
         if (this.userService.checkEmailExits(user.getEmail())) {
@@ -38,6 +46,30 @@ public class RegisterValidator implements ConstraintValidator<RegisterChecked, R
                     .disableDefaultConstraintViolation();
             valid = false;
         }
+
+        if (user.getFirstName().isEmpty()) {
+            context.buildConstraintViolationWithTemplate("Firstname không được trống")
+                    .addPropertyNode("firstName")
+                    .addConstraintViolation()
+                    .disableDefaultConstraintViolation();
+            valid = false;
+        }
+        if (user.getFirstName().isEmpty()) {
+            context.buildConstraintViolationWithTemplate("Lastname không được trống")
+                    .addPropertyNode("lastName")
+                    .addConstraintViolation()
+                    .disableDefaultConstraintViolation();
+            valid = false;
+        }
+
+        if (user.getPassword().isEmpty()) {
+            context.buildConstraintViolationWithTemplate("Password không được trống")
+                    .addPropertyNode("password")
+                    .addConstraintViolation()
+                    .disableDefaultConstraintViolation();
+            valid = false;
+        }
+
         return valid;
     }
 }
