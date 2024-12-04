@@ -19,7 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
         vn.hoidanit.laptopshop.domain.User user = this.userService.getUserByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -28,8 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new User(
                 user.getEmail(),
                 user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
-
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+user.getRole().getName())));
 
     }
 

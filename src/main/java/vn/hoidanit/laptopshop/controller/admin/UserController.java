@@ -54,7 +54,7 @@ public class UserController {
             @RequestParam("imageFile") MultipartFile file) {
         // validation
         if (bindingResult.hasErrors()) {
-            return "/admin/user/create";
+            return "admin/user/create";
         }
         // end
         String avatar = this.uploadService.handleUploadSave(file, "avatar");
