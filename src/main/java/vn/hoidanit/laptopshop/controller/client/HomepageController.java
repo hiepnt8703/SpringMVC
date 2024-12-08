@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomepageController {
@@ -67,11 +68,14 @@ public class HomepageController {
         return "client/auth/login";
     }
 
-    @PostMapping("/")
-    public String postMethodName(@RequestBody String entity) {
-        // TODO: process POST request
+    @GetMapping("/access-deny")
+    public String getDenyPage() {
+        return "client/auth/deny";
+    }
 
-        return entity;
+    @GetMapping("/cart")
+    public String getCartPage() {
+        return "client/cart/show";
     }
 
 }

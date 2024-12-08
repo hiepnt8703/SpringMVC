@@ -37,34 +37,78 @@
 
                                             <h1 class="text-center">Update User</h1>
                                             <form:form action="/admin/user/update" method="post"
-                                                modelAttribute="newUser">
-                                                <div class="mb-3" style="display: none;">
-                                                    <label class="form-label">ID:</label>
-                                                    <form:input type="text" class="form-control" path="id" />
+                                                modelAttribute="newUser" enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="mb-3" style="display: none;">
+                                                        <label class="form-label">ID:</label>
+                                                        <form:input type="text" class="form-control" path="id" />
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <c:set var="errorEmail">
+                                                            <form:errors path="email" cssClass="invalid-feedback" />
+                                                        </c:set>
+                                                        <label class="form-label">Email address:</label>
+                                                        <form:input type="email"
+                                                            class=" form-control ${not empty errorEmail ? 'is-invalid' :''}"
+                                                            path="email" disabled="true" />
+                                                        ${errorEmail}
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <c:set var="errorFullname">
+                                                            <form:errors path="fullName" cssClass="invalid-feedback" />
+                                                        </c:set>
+                                                        <label class="form-label">FullName:</label>
+                                                        <form:input type="text"
+                                                            class="form-control ${not empty errorFullname ? 'is-invalid' : ''}"
+                                                            path="fullName" />
+                                                        ${errorFullname}
+                                                    </div>
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <c:set var="errorPhone">
+                                                            <form:errors path="phone" cssClass="invalid-feedback" />
+                                                        </c:set>
+                                                        <label class="form-label">Number Phone</label>
+                                                        <form:input type="text"
+                                                            class="form-control ${not empty errorPhone ? 'is-invalid' : ''}"
+                                                            path="phone" />
+                                                        ${errorPhone}
+                                                    </div>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label class="form-label">Email address:</label>
-                                                    <form:input type="email" class="form-control" path="email"
-                                                        disabled="true" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">FullName:</label>
-                                                    <form:input type="text" class="form-control" path="fullName" />
-                                                </div>
-                                                <div class="mb-3">
+                                                    <c:set var="errorAddress">
+                                                        <form:errors path="address" cssClass="invalid-feedback" />
+                                                    </c:set>
                                                     <label class="form-label">Address:</label>
-                                                    <form:input type="text" class="form-control" path="address" />
+                                                    <form:input type="text"
+                                                        class="form-control ${not empty errorAddress ? 'is-invalid' : ''}"
+                                                        path="address" />
+                                                    ${errorAddress}
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Number Phone:</label>
-                                                    <form:input type="text" class="form-control" path="phone" />
+                                                <div class="row">
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <label class="form-label">Role:</label>
+                                                        <form:select class="form-select" path="role.name">
+                                                            <form:option value="ADMIN">Admin</form:option>
+                                                            <form:option value="USER">Guest</form:option>
+                                                        </form:select>
+                                                    </div>
+                                                    <div class="col-12 mb-3 col-md-6">
+                                                        <label for="avatarfile" class="form-label">Choose
+                                                            avatar:</label>
+                                                        <input class="form-control" type="file" id="avatarFile"
+                                                            accept=".png, .jpg, .jpeg" name="imageFile" />
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <img style="display: none;" alt="avatar preview"
+                                                            id="avatarPreview">
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3 form-check">
-                                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                    <label class="form-check-label" for="exampleCheck1">Check me
-                                                        out</label>
+                                                <div class="col-12 mb-5">
+                                                    <button type="submit" class="btn btn-primary">Update</button>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">Update</button>
                                             </form:form>
                                         </div>
                                     </div>

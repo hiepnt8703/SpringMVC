@@ -40,7 +40,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 return roleTargetUrlMap.get(authorityName);
             }
         }
-
         throw new IllegalStateException();
     }
 
