@@ -26,27 +26,51 @@ public class CartDetail {
 
     private long quantity;
     private double price;
+
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
+
     public long getQuantity() {
         return quantity;
     }
+
     public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
+
     public double getPrice() {
         return price;
     }
+
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
-        return "CartDetail [id=" + id + ", quantity=" + quantity + ", price=" + price + "]";
+        return "CartDetail [id=" + id + ", cart=" + cart + ", product=" + product + ", quantity=" + quantity
+                + ", price=" + price + "]";
     }
-    
+
 }
