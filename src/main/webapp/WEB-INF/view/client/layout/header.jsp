@@ -12,7 +12,7 @@
                     </button>
                     <div class="collapse navbar-collapse bg-white justify-content-between mx-5" id="navbarCollapse">
                         <div class="navbar-nav">
-                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="/" class="nav-item nav-link active">Trang chủ</a>
                             <a href="shop.html" class="nav-item nav-link">Sản Phẩm</a>
 
                         </div>
@@ -23,7 +23,9 @@
                                     <i class="fa fa-shopping-bag fa-2x"></i>
                                     <span
                                         class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                        style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                                        style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
+                                        ${sessionScope.sum}
+                                    </span>
                                 </a>
                                 <div class="dropdown my-auto">
                                     <a href="#" class="dropdown" role="button" id="dropdownMenuLink"

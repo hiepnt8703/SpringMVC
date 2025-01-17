@@ -27,7 +27,7 @@ public class Cart {
     List<CartDetail> cartDetails;
 
     @Min(value = 0)
-    private double sum;
+    private int sum;
 
     public long getId() {
         return id;
@@ -37,11 +37,11 @@ public class Cart {
         this.id = id;
     }
 
-    public double getSum() {
+    public int getSum() {
         return sum;
     }
 
-    public void setSum(double sum) {
+    public void setSum(int sum) {
         this.sum = sum;
     }
 

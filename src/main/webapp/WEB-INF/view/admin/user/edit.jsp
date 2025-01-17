@@ -13,6 +13,17 @@
                 <title>Dashboard - Tuan Hiep Shop</title>
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
                 <link href="/css/styles.css" rel="stylesheet" />
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
@@ -92,18 +103,19 @@
                                                         <label class="form-label">Role:</label>
                                                         <form:select class="form-select" path="role.name">
                                                             <form:option value="ADMIN">Admin</form:option>
-                                                            <form:option value="USER">Guest</form:option>
+                                                            <form:option value="USER">User</form:option>
                                                         </form:select>
                                                     </div>
                                                     <div class="col-12 mb-3 col-md-6">
                                                         <label for="avatarfile" class="form-label">Choose
                                                             avatar:</label>
-                                                        <input class="form-control" type="file" id="avatarFile"
-                                                            accept=".png, .jpg, .jpeg" name="imageFile" />
+                                                        <form:input class="form-control" type="file" id="avatarFile"
+                                                            accept=".png, .jpg, .jpeg" name="imageFile" path="avatar" />
                                                     </div>
                                                     <div class="col-12 mb-3">
                                                         <img style="display: none;" alt="avatar preview"
-                                                            id="avatarPreview">
+                                                            id="avatarPreview"
+                                                            src="/images/avatar/${currentUser.avatar}">
                                                     </div>
                                                 </div>
                                                 <div class="col-12 mb-5">

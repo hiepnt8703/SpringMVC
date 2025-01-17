@@ -12,7 +12,6 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,8 +40,15 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             session.setAttribute("avatar", user.getAvatar());
             session.setAttribute("id", user.getId());
             session.setAttribute("email", user.getEmail());
-        }
+            int sum;
+            if (user.getCarts() != null && user.getCarts().getSum() != 0) {
+                sum = user.getCarts().getSum();
+            } else {
+                sum = 0;
+            }
 
+            session.setAttribute("sum", sum);
+        }
     }
 
     protected String determineTargetUrl(final Authentication authentication) {
