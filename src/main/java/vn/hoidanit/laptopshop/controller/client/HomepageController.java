@@ -2,6 +2,7 @@ package vn.hoidanit.laptopshop.controller.client;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,27 +18,20 @@ import vn.hoidanit.laptopshop.service.UserService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 public class HomepageController {
-    private final ProductService productService;
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-
-    public HomepageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder) {
-        this.productService = productService;
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private ProductService productService;
+    private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String getHomePage(Model model) {
         List<Product> products = this.productService.getAll();
         model.addAttribute("products", products);
-        
+
         return "client/homepage/show";
     }
 
@@ -73,7 +67,5 @@ public class HomepageController {
     public String getDenyPage() {
         return "client/auth/deny";
     }
-
-    
 
 }

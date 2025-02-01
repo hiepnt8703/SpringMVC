@@ -1,7 +1,10 @@
 package vn.hoidanit.laptopshop.controller.client;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,20 +15,16 @@ import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.ProductService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-
 @Controller
 public class ItemController {
-
-    private final ProductService productService;
-
-    public ItemController(ProductService productService) {
-        this.productService = productService;
-    }
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/product/{id}")
     public String getProductDetail(Model model, @PathVariable long id) {
@@ -41,24 +40,34 @@ public class ItemController {
         long productId = id;
         String email = (String) session.getAttribute("email");
 
-        this.productService.addProductToCart(email , productId , session);
+        this.productService.addProductToCart(email, productId, session);
 
         return "redirect:/";
     }
 
     @GetMapping("/cart")
-    public String getCartPage(Model model , HttpServletRequest request) {
+    public String getCartPage(Model model, HttpServletRequest request) {
         String title = "Laptop Shop - Cart";
         model.addAttribute("title", title);
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
         User currentUser = new User();
-        Cart cart = this.productService.fetchByUser(currentUser);
-        
-        List<CartDetail> cartDetails = cart.getCartDetails();
+        currentUser.setId(id);
 
-        model.addAttribute("cartDetails", cartDetails);
+        Cart cart = this.productService.fetchByUser(currentUser);
+        List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
+
+        double totalPrice = 0;
+        for (CartDetail cartDetail : cartDetails) {
+            totalPrice += cartDetail.getPrice() * cartDetail.getQuantity();
+        }
+
+        double shipping = 30000.0;
+        model.addAttribute("cartdetails", cartDetails);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("shipping", shipping);
 
         return "client/cart/show";
     }
-    
 
 }
