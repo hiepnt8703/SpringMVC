@@ -63,7 +63,7 @@ public class ItemController {
         }
 
         double shipping = 30000.0;
-        model.addAttribute("cartdetails", cartDetails);
+        model.addAttribute("cartdetails" , cartDetails);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("shipping", shipping);
 
