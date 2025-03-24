@@ -28,7 +28,7 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/admin/user")
+    @GetMapping("/admin/user")
     public String getHomeUser(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("users", users);
