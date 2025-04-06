@@ -13,10 +13,14 @@ import vn.hoidanit.laptopshop.repository.UserRepository;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+
+    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+    }
 
     public String handleHello() {
         return "Hello from Service";

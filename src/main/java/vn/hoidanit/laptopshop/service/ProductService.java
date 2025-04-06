@@ -47,13 +47,16 @@ public class ProductService {
     }
 
     public void addProductToCart(String email, long productId, HttpSession session) {
+        /**
+         * Lấy người dùng theo email
+         * */
         User user = this.userService.getUserByEmail(email);
-        // check có cart hay chưa? nếu chưa -> tạo mới
+
         if (user != null) {
             Cart cart = this.cartRepository.findByUser(user);
-
+            // check xem có cart hay chưa, nếu chưa tạo mới
             if (cart == null) {
-                // create new cart
+                // tạo mới cart
                 Cart newCart = new Cart();
                 newCart.setUser(user);
                 newCart.setSum(0);
@@ -61,14 +64,15 @@ public class ProductService {
                 cart = this.cartRepository.save(newCart);
             }
 
+            // Theo product vào cart
             Optional<Product> productOptional = this.productRepository.findById(productId);
             if (productOptional.isPresent()) {
+                // lấy sản pham
                 Product realProduct = productOptional.get();
 
                 // Check san pham da duoc them gio hang hay chua
                 CartDetail oldDetail = this.cartDetailRepository.findByCartAndProduct(cart, realProduct);
 
-                //
                 if (oldDetail == null) {
                     CartDetail cartDetail = new CartDetail();
                     cartDetail.setCart(cart);
@@ -77,10 +81,10 @@ public class ProductService {
                     cartDetail.setQuantity(1);
                     this.cartDetailRepository.save(cartDetail);
 
-                    int s = cart.getSum() + 1;
-                    cart.setSum(s);
+                    int sum = cart.getSum() + 1;
+                    cart.setSum(sum);
                     this.cartRepository.save(cart);
-                    session.setAttribute("sum", s);
+                    session.setAttribute("sum", sum);
                 } else {
                     oldDetail.setQuantity(oldDetail.getQuantity() + 1);
                     this.cartDetailRepository.save(oldDetail);

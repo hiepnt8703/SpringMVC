@@ -13,8 +13,12 @@ import jakarta.servlet.ServletContext;
 
 @Service
 public class UploadService {
-    @Autowired
-    private ServletContext servletContext;
+
+    private final ServletContext servletContext;
+
+    public UploadService(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
 
     public String handleUploadSave(MultipartFile file, String targetFolder) {
 

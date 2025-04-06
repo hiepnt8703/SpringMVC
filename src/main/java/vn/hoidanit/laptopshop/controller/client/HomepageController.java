@@ -22,10 +22,15 @@ import jakarta.validation.Valid;
 
 @Controller
 public class HomepageController {
-    @Autowired
-    private ProductService productService;
-    private UserService userService;
-    private PasswordEncoder passwordEncoder;
+    private final ProductService productService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+
+    public HomepageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder) {
+        this.productService = productService;
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping("/")
     public String getHomePage(Model model) {

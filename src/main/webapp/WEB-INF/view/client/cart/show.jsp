@@ -77,14 +77,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <c:if test="${ empty cartdetails}">
-                                    <tr>
-                                        <td colspan="6">
-                                            Không có sản phẩm trong giỏ hàng
-                                        </td>
-                                    </tr>
-                                </c:if>
-
+                                    <c:if test="${ empty cartdetails}">
+                                        <tr>
+                                            <td colspan="6">
+                                                Không có sản phẩm trong giỏ hàng
+                                            </td>
+                                        </tr>
+                                    </c:if>
                                     <c:forEach var="cartDetail" items="${cartdetails}">
                                         <tr>
                                             <th scope="row">
@@ -149,7 +148,7 @@
                                             </h1>
                                             <div class="d-flex justify-content-between mb-4">
                                                 <h5 class="mb-0 me-4">Tạm tính:</h5>
-                                                <p class="mb-0" data-total-price="${totalPrice}">
+                                                <p class="mb-0" data-cart-total-price="${totalPrice}">
                                                     <fmt:formatNumber type="number" value="${totalPrice}" /> đ
                                                 </p>
                                             </div>
@@ -157,15 +156,15 @@
                                                 <h5 class="mb-0 me-4">Phí vận chuyển</h5>
                                                 <div class="">
                                                     <p class="mb-0">
-                                                        <fmt:formatNumber type="number" value="${shipping}" /> đ
+                                                        0đ
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                                             <h5 class="mb-0 ps-4 me-4">Tổng tiền</h5>
-                                            <p class="mb-0 pe-4">
-                                                <fmt:formatNumber type="number" value="${totalPrice + shipping}" /> đ
+                                            <p class="mb-0 pe-4" data-cart-total-price="${totalPrice}">
+                                                <fmt:formatNumber type="number" value="${totalPrice}" /> đ
                                             </p>
                                         </div>
                                         <button
