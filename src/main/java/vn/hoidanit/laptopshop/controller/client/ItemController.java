@@ -3,13 +3,11 @@ package vn.hoidanit.laptopshop.controller.client;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Product;
@@ -66,6 +64,14 @@ public class ItemController {
         model.addAttribute("shipping", shipping);
 
         return "client/cart/show";
+    }
+
+    @PostMapping("/delete-cart-product/{id}")
+    public String deleteCartDetail(@PathVariable long id , HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+//        long cartDetailId = id;
+        this.productService.deleteProductFromCart(id,session);
+        return "redirect:/cart";
     }
 
 }

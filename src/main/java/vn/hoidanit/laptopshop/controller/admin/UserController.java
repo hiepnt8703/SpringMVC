@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @RequestMapping("/admin/user/{id}")
-    public String getUserDetail(Model model, @PathVariable Long id) {
+    public String getUserDetail(Model model,@PathVariable Long id) {
         String abc = "Tuan Hiep Shop";
         User user = this.userService.getUserById(id);
         model.addAttribute("title", abc);
