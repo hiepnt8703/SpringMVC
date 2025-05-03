@@ -17,11 +17,14 @@
                 <script>
                     $(document).ready(() => {
                         const avatarFile = $("#avatarFile");
+                        const orgImage = "${newAvatar.image}";
                         avatarFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#avatarPreview").attr("src", imgURL);
                             $("#avatarPreview").css({ "display": "block" });
                         });
+
+
                     });
                 </script>
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -103,19 +106,18 @@
                                                         <label class="form-label">Role:</label>
                                                         <form:select class="form-select" path="role.name">
                                                             <form:option value="ADMIN">Admin</form:option>
-                                                            <form:option value="USER">User</form:option>
+                                                            <form:option value="USER">Guest</form:option>
                                                         </form:select>
                                                     </div>
                                                     <div class="col-12 mb-3 col-md-6">
                                                         <label for="avatarfile" class="form-label">Choose
                                                             avatar:</label>
-                                                        <form:input class="form-control" type="file" id="avatarFile"
-                                                            accept=".png, .jpg, .jpeg" name="imageFile" path="avatar" />
+                                                        <input class="form-control" type="file" id="avatarFile"
+                                                               accept=".png, .jpg, .jpeg" name="imageFile" />
                                                     </div>
                                                     <div class="col-12 mb-3">
                                                         <img style="display: none;" alt="avatar preview"
-                                                            id="avatarPreview"
-                                                            src="/images/avatar/${currentUser.avatar}">
+                                                             id="avatarPreview">
                                                     </div>
                                                 </div>
                                                 <div class="col-12 mb-5">

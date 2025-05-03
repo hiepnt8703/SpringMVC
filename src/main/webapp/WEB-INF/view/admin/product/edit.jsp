@@ -145,7 +145,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class=" mb-3 col-md-6">
-                                                        <img style="display: none;" alt="avatar preview"
+                                                        <img style="display: none;" alt="product preview"
                                                             id="productPreview">
                                                     </div>
                                                 </div>

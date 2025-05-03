@@ -62,7 +62,7 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    @RequestMapping("/admin/user/{id}")
+    @GetMapping("/admin/user/{id}")
     public String getUserDetail(Model model,@PathVariable Long id) {
         String abc = "Tuan Hiep Shop";
         User user = this.userService.getUserById(id);
@@ -72,7 +72,7 @@ public class UserController {
         return "admin/user/detail";
     }
 
-    @RequestMapping("/admin/user/update/{id}")
+    @GetMapping("/admin/user/update/{id}")
     public String getUserEdit(Model model, @PathVariable Long id) {
         String abc = "Tuan Hiep Shop";
         model.addAttribute("title", abc);
@@ -82,7 +82,7 @@ public class UserController {
         return "admin/user/edit";
     }
 
-    @PutMapping("/admin/user/update")
+    @PostMapping("/admin/user/update")
     public String getUserUpdate(Model model, @ModelAttribute("newUser") User user,
             @RequestParam("imageFile") MultipartFile file) {
         String abc = "Tuan Hiep Shop";
