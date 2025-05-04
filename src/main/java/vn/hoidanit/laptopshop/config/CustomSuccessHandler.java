@@ -24,7 +24,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
     private UserService userService;
 
-
     protected void clearAuthenticationAttributes(HttpServletRequest request, Authentication authentication) {
         HttpSession session = request.getSession(false);
         if (session == null) {
