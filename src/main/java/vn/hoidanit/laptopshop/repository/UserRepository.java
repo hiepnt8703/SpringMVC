@@ -1,6 +1,7 @@
 package vn.hoidanit.laptopshop.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import vn.hoidanit.laptopshop.domain.User;
 
@@ -15,4 +16,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
     User findUserByEmail(String email);
+
+    @Query(value = """
+    SELECT COUNT(*) AS total_users FROM users
+""" , nativeQuery = true)
+    long countUser();
 }

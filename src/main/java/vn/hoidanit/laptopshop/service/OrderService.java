@@ -3,6 +3,7 @@ package vn.hoidanit.laptopshop.service;
 import org.springframework.stereotype.Service;
 import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.OrderDetail;
+import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
 import vn.hoidanit.laptopshop.repository.OrderRepository;
 
@@ -49,5 +50,13 @@ public class OrderService {
             this.orderRepository.save(currentOrder);
         }
 
+    }
+
+    public long countOrders() {
+        return this.orderRepository.countOrders();
+    }
+
+    public List<Order> fetchOrderByuser(User user) {
+        return this.orderRepository.findByUser(user);
     }
 }

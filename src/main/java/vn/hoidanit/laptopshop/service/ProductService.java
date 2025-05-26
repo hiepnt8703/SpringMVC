@@ -3,6 +3,8 @@ package vn.hoidanit.laptopshop.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
@@ -33,7 +35,11 @@ public class ProductService {
         return this.productRepository.save(product);
     }
 
-    public List<Product> getAll() {
+    public Page<Product> getAll(Pageable pageable) {
+        return this.productRepository.findAll(pageable);
+    }
+
+    public List<Product> getAllProducts() {
         return this.productRepository.findAll();
     }
 
@@ -45,7 +51,7 @@ public class ProductService {
         this.productRepository.deleteById(id);
     }
 
-    public void addProductToCart(String email, long productId, HttpSession session) {
+    public void addProductToCart(String email, long productId, HttpSession session , long quantity) {
         /**
          * Lấy người dùng theo email
          * */
@@ -77,7 +83,7 @@ public class ProductService {
                     cartDetail.setCart(cart);
                     cartDetail.setProduct(realProduct);
                     cartDetail.setPrice(realProduct.getPrice());
-                    cartDetail.setQuantity(1);
+                    cartDetail.setQuantity(quantity);
                     this.cartDetailRepository.save(cartDetail);
 
                     int sum = cart.getSum() + 1;
@@ -85,7 +91,7 @@ public class ProductService {
                     this.cartRepository.save(cart);
                     session.setAttribute("sum", sum);
                 } else {
-                    oldDetail.setQuantity(oldDetail.getQuantity() + 1);
+                    oldDetail.setQuantity(oldDetail.getQuantity() + quantity);
                     this.cartDetailRepository.save(oldDetail);
                 }
 
@@ -154,7 +160,8 @@ public class ProductService {
                 order.setStatus("PENDING");
                 double sum = 0;
                 for (CartDetail cartDetail : cartDetails) {
-                    sum += cartDetail.getPrice();
+                    double totalPrice = cartDetail.getPrice() * cartDetail.getQuantity();
+                    sum += totalPrice;
                 }
                 order.setTotalPrice(sum);
                 order = this.orderRepository.save(order);
@@ -180,5 +187,9 @@ public class ProductService {
                 session.setAttribute("sum", 0);
             }
         }
+    }
+
+    public long countProducts() {
+        return this.productRepository.countProducts();
     }
 }
