@@ -41,12 +41,12 @@ public class ProductController {
     ) {
         String abc = "Tuan Hiep shop";
         // phan trang
-        Pageable pageable = PageRequest.of(page -1 , 5);
-        Page<Product> productPage = this.productService.getAll(pageable);
-        List<Product> products = productPage.getContent();
-
-        model.addAttribute("title", abc);
-        model.addAttribute("products", products);
+        Pageable pageable = PageRequest.of(page - 1, 2);
+        Page<Product> prs = this.productService.fetchProducts(pageable);
+        List<Product> listProducts = prs.getContent();
+        model.addAttribute("products", listProducts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", prs.getTotalPages());
         return "admin/product/index";
     }
 

@@ -47,9 +47,9 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach var="order" items="${orders}">
+                                        <c:forEach var="order" items="${orders}" varStatus="loop">
                                             <tr>
-                                                <th>${order.id}</th>
+                                                <th>${loop.index+1}</th>
                                                 <td>
                                                     <fmt:formatNumber type="number"
                                                                       value="${order.totalPrice}" /> đ

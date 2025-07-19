@@ -1,50 +1,43 @@
 package vn.hoidanit.laptopshop.controller.client;
 
-import java.util.List;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
-import vn.hoidanit.laptopshop.domain.Order;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
-import vn.hoidanit.laptopshop.service.OrderService;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UserService;
 
-import org.springframework.web.bind.annotation.PostMapping;
-
-import jakarta.validation.Valid;
+import java.util.List;
 
 @Controller
 public class HomepageController {
-    private final ProductService productService;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private final OrderService orderService;
+    private final ProductService productService;
 
-    public HomepageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder, OrderService orderService) {
-        this.productService = productService;
+    public HomepageController(UserService userService, PasswordEncoder passwordEncoder, ProductService productService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
-        this.orderService = orderService;
+        this.productService = productService;
     }
 
     @GetMapping("/")
-    public String getHomePage(Model model) {
-        List<Product> products = this.productService.getAllProducts();
+    public String getHomePage(Model model, @RequestParam(value = "page" , defaultValue = "1") int page) {
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Product> prs = this.productService.fetchProducts(pageable);
+        List<Product> products = prs.getContent();
         model.addAttribute("products", products);
-
         return "client/homepage/show";
     }
 
@@ -79,18 +72,6 @@ public class HomepageController {
     @GetMapping("/access-deny")
     public String getDenyPage() {
         return "client/auth/deny";
-    }
-
-    @GetMapping("/order-history")
-    public String getOrderHistoryPage(Model model , HttpServletRequest request) {
-        User currentUser = new User();
-        HttpSession session = request.getSession(false);
-        long id = (Long) session.getAttribute("id");
-        currentUser.setId(id);
-
-        List<Order> orders = this.orderService.fetchOrderByuser(currentUser);
-
-        return "client/cart/order-history";
     }
 
 }

@@ -47,9 +47,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${users}" var="item">
+                                                <c:forEach items="${users}" var="item" varStatus="loop">
                                                     <tr>
-                                                        <th scope="row">${item.id}</th>
+                                                        <th scope="row">${loop.index+1}</th>
                                                         <td>${item.email}</td>
                                                         <td>${item.fullName}</td>
                                                         <td>${item.role.name}</td>
