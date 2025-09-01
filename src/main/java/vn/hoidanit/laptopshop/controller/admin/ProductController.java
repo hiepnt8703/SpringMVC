@@ -37,11 +37,24 @@ public class ProductController {
 
     @GetMapping("/admin/product")
     public String getHomeProduct(Model model,
-        @RequestParam(value = "page" , defaultValue = "1") int page
+        @RequestParam(value = "page") Optional<String> pageOptinal
     ) {
         String abc = "Tuan Hiep shop";
         // phan trang
-        Pageable pageable = PageRequest.of(page - 1, 2);
+        int page = 1;
+        try{
+            if (pageOptinal.isPresent()) {
+                // convert string to int
+                page = Integer.parseInt(pageOptinal.get());
+            }
+            else {
+                // page = 1
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Pageable pageable = PageRequest.of(page - 1, 5);
         Page<Product> prs = this.productService.fetchProducts(pageable);
         List<Product> listProducts = prs.getContent();
         model.addAttribute("products", listProducts);
